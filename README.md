@@ -44,8 +44,8 @@ minutes and the tweeting script 4 times daily, at 00:05, 06:05, 12:05 and 18:05.
 After typing `crontab -e`, add the following lines to the bottom.
 
 ```
-*/10 * * * * sh /home/pi/internet-of-seeds.sh >> /home/pi/cron.log
-05 00,06,12,18 * * * /home/pi/internet-of-seeds-tweet.sh >> /home/pi/cron.log
+*/10 * * * * sh /home/pi/internet-of-seeds/internet-of-seeds.sh >> /home/pi/cron.log
+05 00,06,12,18 * * * /home/pi/internet-of-seeds/internet-of-seeds-tweet.sh >> /home/pi/cron.log
 ```
 
 This also logs all of the standard output to a file named `cron.log` in your
