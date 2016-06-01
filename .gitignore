@@ -1,2 +1,5 @@
 config.json
-data/*
+data/*.jpg
+data/*.ttf
+data/*.log
+data/*.png
