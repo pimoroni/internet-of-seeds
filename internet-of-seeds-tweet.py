@@ -2,6 +2,7 @@ import json
 import tweepy
 import datetime
 
+config_f = 'config.json'
 with open(config_f) as f:
   config = json.load(f)
 

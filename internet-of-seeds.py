@@ -10,6 +10,7 @@ from PIL import Image, ImageFont, ImageDraw
 import flotilla
 from sparkblocks import spark
 
+config_f = 'config.json'
 with open(config_f) as f:
   config = json.load(f)
 
@@ -49,8 +50,8 @@ def ndvi_process(img):
   data[:,:,1] = g
   data = np.uint8(data)
   ndvi_img = Image.fromarray(data)
-  ndvi_img.save(img)
-  return True
+  ndvi_img.save('data/latest_ir.jpg')
+  return ndvi_img
 
 ## Overlays the timestamp and sensor values on the latest captured image. Needs
 ## to be passed a datetime object and the dictionary of sensor values.
@@ -61,16 +62,18 @@ def timestamp_image(t, sensor_vals, sparks, watermark=False, config=config):
   else:
     img = Image.open('data/latest.jpg')
   img = img.resize((1438, 1080))
+  if config['ir'] == 1:
+    img = ndvi_process(img)
+    filename = 'data/latest_ir_ts.jpg'
+  else:
+    filename = 'data/latest_ts.jpg'
   if watermark == True:
     wm = Image.open('data/watermark.png')
   img.paste(wm, (0, 996), wm)
   draw = ImageDraw.Draw(img)
   font = ImageFont.truetype('data/Roboto-Regular.ttf', 36)
   if config['ir'] == 1:
-    ndvi_process(img)
     draw.text((10, 10), ts_read, (255, 255, 255), font=font)
-    filename = 'data/latest_ir_ts.jpg'
-    img.save(filename)
   else:
     spark_font = ImageFont.truetype('data/arial-unicode-ms.ttf', 16)
     draw.text((10, 10), ts_read, (255, 255, 255), font=font)
@@ -80,8 +83,7 @@ def timestamp_image(t, sensor_vals, sparks, watermark=False, config=config):
     draw.text((10, 170), 'RGB: ' + ','.join([str(int(i)) for i in sensor_vals['colour']]), (255, 255, 255), font=font)
     for i in range(len(sparks)):
       draw.text((10, 225 + i * 25), sparks[i], (255, 255, 255), font=spark_font)
-    filename = 'data/latest_ts.jpg'
-    img.save(filename)
+  img.save(filename)
   return filename
 
 ## Reads the Flotilla sensor values and stores them in a dictionary.
