@@ -23,15 +23,15 @@ cd flotilla-python/library
 sudo python setup.py install
 ```
 
-We've used Roboto as the font for our timestamping and sensor data overlay.
-You can get it [here](https://www.fontsquirrel.com/fonts/roboto). You'll also
+We've used [Roboto](https://www.fontsquirrel.com/fonts/roboto) as the font for our 
+timestamping and sensor data overlay. You'll also
 need [Arial Unicode MS](http://www.myfontfree.com/arial-unicode-ms-myfontfreecom126f36926.htm)
 for the sparklines
 
 To use tweepy to tweet, you'll need to set up a new app on the
 [Twitter developer site](https://dev.twitter.com/). It's free to do. You'll
 then need to add your own consumer and access keys and secrets in a config.json 
-file. See config.example.json as an example.
+file. See [config.example.json](config.example.json) as an example.
 
 The paths in the shell scripts assume that this repo is in your home directory.
 
