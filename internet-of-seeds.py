@@ -42,7 +42,7 @@ def ndvi_process(img):
   num += 0.01
   denom += 0.01
   data[:,:,1] = (num / denom)
-  low_vals = data < 128
+  low_vals = data < 75
   data[low_vals] = 0
   g = data[:,:,0].copy()
   r = data[:,:,1].copy()
